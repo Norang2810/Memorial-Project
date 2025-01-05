@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import TearBackground from "@/components/TearEffect/TearBackground";
 
 export default function LoginPage() {
-  const [authCode, setAuthCode] = useState<string | null>(null);
   const [alertShown, setAlertShown] = useState<boolean>(false);
   const router = useRouter();
 
@@ -40,7 +39,6 @@ export default function LoginPage() {
     const params = new URL(window.location.href).searchParams;
     const message = params.get("message");
 
-    // 로그인이 필요한 경우 알림 (한 번만 실행)
     if (message === "login_required" && !alertShown) {
       alert("로그인이 필요한 페이지입니다.");
       setAlertShown(true);
@@ -54,10 +52,7 @@ export default function LoginPage() {
     } else {
       const code = params.get("code");
       if (code) {
-        // 사용되지 않는 authCode 문제 해결
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _authCode = code;  // 변수명 앞에 _를 붙여 사용되지 않는 변수임을 명시
-        setAuthCode(code);
+        // authCode 삭제
         handleKakaoLogin(code);
       }
     }
