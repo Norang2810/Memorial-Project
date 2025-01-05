@@ -9,7 +9,7 @@ import NicknameRoller from "@/components/NicknameRoller";
 import { useRouter } from "next/navigation";
 
 const REST_API_KEY = "e1bc3c4db3a86b3b347d08cef1f2a65c";
-const LOGOUT_REDIRECT_URI = "https://memorial-project-37gobiq10-norang2810s-projects.vercel.app";
+const LOGOUT_REDIRECT_URI = "https://memorial-project.vercel.app";
 
 export default function HomePage() {
   const [count, setCount] = useState(703055);
@@ -182,6 +182,8 @@ export default function HomePage() {
           <NicknameRoller nicknames={nicknames} />
         </div>
       </section>
+
+
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
           <div className="bg-white p-10 rounded-lg shadow-lg text-center max-w-lg flex flex-col justify-center items-center">

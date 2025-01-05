@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";  // Prisma 클라이언트 불러오기
 export async function POST(req: Request) {
   const { code } = await req.json();
   const REST_API_KEY = process.env.KAKAO_REST_API_KEY || "e1bc3c4db3a86b3b347d08cef1f2a65c";
-  const REDIRECT_URI = process.env.KAKAO_REDIRECT_URI || "https://memorial-project-dhfr1bgrx-norang2810s-projects.vercel.app";
+  const REDIRECT_URI = process.env.KAKAO_REDIRECT_URI || "https://memorial-project.vercel.app";
 
   try {
     console.log("전달된 Authorization Code:", code);
