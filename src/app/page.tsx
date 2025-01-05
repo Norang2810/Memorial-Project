@@ -9,7 +9,7 @@ import NicknameRoller from "@/components/NicknameRoller";
 import { useRouter } from "next/navigation";
 
 const REST_API_KEY = "e1bc3c4db3a86b3b347d08cef1f2a65c";
-const LOGOUT_REDIRECT_URI = "http://localhost:3000/login";
+const LOGOUT_REDIRECT_URI = "https://memorial-project-37gobiq10-norang2810s-projects.vercel.app";
 
 export default function HomePage() {
   const [count, setCount] = useState(703055);

@@ -4,7 +4,7 @@ import React from "react";
 
 // 카카오 REST API 키와 로그아웃 리디렉트 URI 설정
 const REST_API_KEY = "e1bc3c4db3a86b3b347d08cef1f2a65c";
-const LOGOUT_REDIRECT_URI = "http://localhost:3000/login";  // 로그아웃 후 이동할 페이지
+const LOGOUT_REDIRECT_URI = "https://memorial-project-37gobiq10-norang2810s-projects.vercel.app";  // 로그아웃 후 이동할 페이지
 
 const handleLogout = () => {
   // 카카오 로그아웃 URL 구성
