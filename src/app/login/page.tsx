@@ -7,7 +7,7 @@ import TearBackground from "@/components/TearEffect/TearBackground";
 
 export default function LoginPage() {
   const [authCode, setAuthCode] = useState<string | null>(null);
-  const [alertShown, setAlertShown] = useState<boolean>(false); // 알림 상태 추가
+  const [alertShown, setAlertShown] = useState<boolean>(false);
   const router = useRouter();
 
   // handleKakaoLogin을 useCallback으로 감싸서 의존성 문제 해결
@@ -33,18 +33,16 @@ export default function LoginPage() {
       const err: any = error;  // error를 any로 명시해 ESLint 에러 방지
       console.error("카카오 로그인 에러:", err);
     }
-  }, [router]);  // router 의존성 추가
+  }, [router]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const params = new URL(window.location.href).searchParams;
     const message = params.get("message");
 
-    // 로그인이 필요한 경우 알림 (한 번만 실행)
     if (message === "login_required" && !alertShown) {
       alert("로그인이 필요한 페이지입니다.");
-      setAlertShown(true); // 알림 상태 업데이트
-      // URL에서 쿼리 파라미터 제거
+      setAlertShown(true);
       const url = new URL(window.location.href);
       url.searchParams.delete("message");
       window.history.replaceState({}, "", url.toString());
@@ -55,13 +53,11 @@ export default function LoginPage() {
     } else {
       const code = params.get("code");
       if (code) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _authCode = code;  // authCode는 사용되지 않으므로 변수명 앞에 _를 붙여 처리
         setAuthCode(code);
-        handleKakaoLogin(code);  // useCallback으로 감싼 함수 사용
+        handleKakaoLogin(code);
       }
     }
-  }, [alertShown, router, handleKakaoLogin]);  // handleKakaoLogin을 의존성 배열에 추가
+  }, [alertShown, router, handleKakaoLogin]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-500 relative">
