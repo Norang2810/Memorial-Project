@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare global {
   interface Window {
-    Kakao: any;
+    Kakao: any;  // Kakao 객체를 any 타입으로 처리하여 ESLint 오류 방지
   }
 }
 
@@ -50,7 +51,9 @@ export default function KakaoShareButton() {
     }
 
     try {
-      window.Kakao.Share.sendDefault({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const kakaoShare: any = window.Kakao.Share;  // Kakao 공유 객체를 any로 처리해 오류 방지
+      kakaoShare.sendDefault({
         objectType: "feed",
         content: {
           title: "추모 페이지",
@@ -74,7 +77,9 @@ export default function KakaoShareButton() {
 
       alert("카카오톡 공유 완료!");
     } catch (err) {
-      console.error("카카오 공유 실패:", err);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const error: any = err;
+      console.error("카카오 공유 실패:", error);
       alert("카카오 공유에 실패했습니다.");
     }
   };

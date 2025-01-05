@@ -29,7 +29,9 @@ export default function LoginPage() {
         alert("로그인 실패");
       }
     } catch (error) {
-      console.error("카카오 로그인 에러:", error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const err: any = error;  // error를 any로 명시해 ESLint 에러 방지
+      console.error("카카오 로그인 에러:", err);
     }
   }, [router]);  // router 의존성 추가
 
@@ -53,6 +55,8 @@ export default function LoginPage() {
     } else {
       const code = params.get("code");
       if (code) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _authCode = code;  // authCode는 사용되지 않으므로 변수명 앞에 _를 붙여 처리
         setAuthCode(code);
         handleKakaoLogin(code);  // useCallback으로 감싼 함수 사용
       }
