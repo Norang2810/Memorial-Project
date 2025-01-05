@@ -4,7 +4,7 @@ import React from "react";
 
 const KakaoLoginButton = () => {
   const REST_API_KEY = "e1bc3c4db3a86b3b347d08cef1f2a65c";
-  const REDIRECT_URI = "http://localhost:3000/login";
+  const REDIRECT_URI = "https://memorial-project-mvmdfsdk9-norang2810s-projects.vercel.app/login";
 
   const handleLogin = () => {
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
