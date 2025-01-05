@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import KakaoLoginButton from "@/components/KakaoLoginButton";
 import { useRouter } from "next/navigation";
 import TearBackground from "@/components/TearEffect/TearBackground";
@@ -9,6 +9,29 @@ export default function LoginPage() {
   const [authCode, setAuthCode] = useState<string | null>(null);
   const [alertShown, setAlertShown] = useState<boolean>(false); // 알림 상태 추가
   const router = useRouter();
+
+  // handleKakaoLogin을 useCallback으로 감싸서 의존성 문제 해결
+  const handleKakaoLogin = useCallback(async (code: string) => {
+    try {
+      const response = await fetch("/api/auth/kakao", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+        router.push("/");
+      } else {
+        alert("로그인 실패");
+      }
+    } catch (error) {
+      console.error("카카오 로그인 에러:", error);
+    }
+  }, [router]);  // router 의존성 추가
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -31,32 +54,10 @@ export default function LoginPage() {
       const code = params.get("code");
       if (code) {
         setAuthCode(code);
-        handleKakaoLogin(code);
+        handleKakaoLogin(code);  // useCallback으로 감싼 함수 사용
       }
     }
-  }, [alertShown, router]);
-
-  const handleKakaoLogin = async (code: string) => {
-    try {
-      const response = await fetch("/api/auth/kakao", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code }),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-        router.push("/");
-      } else {
-        alert("로그인 실패");
-      }
-    } catch (error) {
-      console.error("카카오 로그인 에러:", error);
-    }
-  };
+  }, [alertShown, router, handleKakaoLogin]);  // handleKakaoLogin을 의존성 배열에 추가
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-500 relative">
